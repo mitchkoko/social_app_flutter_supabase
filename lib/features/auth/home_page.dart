@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/components/my_drawer.dart';
 import 'package:social_media_app/features/auth/auth_service.dart';
+import 'package:social_media_app/features/post/post_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +13,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // get auth service
   final _auth = AuthService();
+
+  // get post service
+  final _post = PostService();
 
   // text controller
   final postTextController = TextEditingController();
@@ -37,6 +42,8 @@ class _HomePageState extends State<HomePage> {
           // post button
           TextButton(
             onPressed: () {
+              // post to supabase
+              _post.insertPost(postTextController.text);
               Navigator.pop(context);
               postTextController.clear();
             },
@@ -49,9 +56,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // current user email
-    String currentUserEmail = _auth.getCurrentUserEmail() ?? "";
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
@@ -65,8 +69,32 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Center(
-        child: Text(currentUserEmail),
+      drawer: const MyDrawer(),
+      body: StreamBuilder(
+        stream: _post.stream,
+        builder: (context, snapshot) {
+          // loading..
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          // loaded
+          final posts = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              // get each post
+              final post = posts[index];
+
+              // list tile UI
+              return ListTile(
+                title: Text(post.content),
+                subtitle: Text(post.email),
+              );
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: postNewMessage,
