@@ -23,7 +23,27 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text("Profile"),
       ),
       body: Center(
-        child: Text(currentUserEmail),
+        child: Column(
+          children: [
+            // profile pic
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.all(25),
+              child: Icon(
+                Icons.person,
+                size: 100,
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            // email
+            Text(currentUserEmail),
+          ],
+        ),
       ),
     );
   }
