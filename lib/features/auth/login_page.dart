@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app/features/auth/auth_service.dart';
-
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -39,43 +38,53 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login"),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
-        children: [
-          // email textfield
-          TextField(
-            controller: emailTextController,
-            decoration: const InputDecoration(labelText: "Email"),
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // logo
+            const Icon(
+              Icons.lock_open,
+              size: 120,
+            ),
 
-          // password textfield
-          TextField(
-            controller: passwordTextController,
-            decoration: const InputDecoration(labelText: "Password"),
-            obscureText: true,
-          ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 50.0),
+              child: Text("T E X T   B A S E D   S O C I A L   A P P"),
+            ),
 
-          const SizedBox(height: 25),
+            // email textfield
+            TextField(
+              controller: emailTextController,
+              decoration: const InputDecoration(labelText: "Email"),
+            ),
 
-          // login button
-          ElevatedButton(
-            onPressed: login,
-            child: const Text("Login"),
-          ),
+            // password textfield
+            TextField(
+              controller: passwordTextController,
+              decoration: const InputDecoration(labelText: "Password"),
+              obscureText: true,
+            ),
 
-          // go to register page
-          TextButton(
-            onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RegisterPage(),
-                )),
-            child: const Text("Sign Up Here"),
-          ),
-        ],
+            const SizedBox(height: 50),
+
+            // login button
+            MaterialButton(
+              onPressed: login,
+              child: const Text("LOGIN"),
+            ),
+
+            // go to register page
+            TextButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RegisterPage())),
+              child: const Text("SIGN UP"),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -47,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up"),
+        title: const Text("Create Account"),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -75,9 +74,9 @@ class _RegisterPageState extends State<RegisterPage> {
           const SizedBox(height: 25),
 
           // sign up button
-          ElevatedButton(
+          MaterialButton(
             onPressed: register,
-            child: const Text("Sign Up"),
+            child: const Text("SIGN UP"),
           ),
         ],
       ),

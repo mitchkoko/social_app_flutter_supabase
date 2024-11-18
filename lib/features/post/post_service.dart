@@ -1,6 +1,5 @@
 import 'package:social_media_app/features/auth/auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'post.dart';
 
 class PostService {
@@ -15,7 +14,7 @@ class PostService {
     }
 
     await _supabase.from('posts').insert({
-      'user_id': user.id, // Ensure user_id matches auth.uid()
+      'user_id': user.id,
       'content': content,
       'email': _auth.getCurrentUserEmail(),
     });
